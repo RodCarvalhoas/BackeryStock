@@ -1,6 +1,7 @@
 package com.RodCarvalhoas.BackeryStock.domain;
 
 import com.RodCarvalhoas.BackeryStock.Enums.UnMedida;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,8 +19,10 @@ public class Item {
     private Double valorUn;
     @Enumerated(EnumType.STRING)
     private UnMedida unMedida;
+    @Column(name = "valor_total")
     private Double total;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "categoria_id")
     private Categoria categoria;
