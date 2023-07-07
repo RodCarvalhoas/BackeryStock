@@ -6,6 +6,7 @@ import com.RodCarvalhoas.BackeryStock.repositories.CategoriaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -20,6 +21,10 @@ public class CategoriaService {
             throw new ObjectNotFoundException("Categoria com o id: " + id +", não encontrado! \nTipo: " + Categoria.class.getName());
         }
         return cat.get();
+    }
+
+    public List<Categoria> findAll(){
+        return categoriaRepository.findAll();
     }
 
 }
