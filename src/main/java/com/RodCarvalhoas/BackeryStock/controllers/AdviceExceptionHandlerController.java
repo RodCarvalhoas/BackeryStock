@@ -2,6 +2,7 @@ package com.RodCarvalhoas.BackeryStock.controllers;
 
 import com.RodCarvalhoas.BackeryStock.exceptions.ObjectNotFoundException;
 import com.RodCarvalhoas.BackeryStock.exceptions.StandardError;
+import com.RodCarvalhoas.BackeryStock.exceptions.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -20,6 +21,16 @@ public class AdviceExceptionHandlerController {
         return new StandardError(
                 new Date(),
                 HttpStatus.NOT_FOUND.value(),
+                ex.getMessage(),
+                webRequest.getDescription(false));
+    }
+
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public StandardError handleDataIntegrityViolationException(DataIntegrityViolationException ex, WebRequest webRequest){
+        return new StandardError(
+                new Date(),
+                HttpStatus.BAD_REQUEST.value(),
                 ex.getMessage(),
                 webRequest.getDescription(false));
     }
