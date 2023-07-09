@@ -34,6 +34,4 @@ public class AdviceExceptionHandlerController {
                 ex.getMessage(),
                 webRequest.getDescription(false));
     }
-
-
 }

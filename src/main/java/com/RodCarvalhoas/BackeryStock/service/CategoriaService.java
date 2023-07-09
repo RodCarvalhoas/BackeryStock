@@ -16,7 +16,7 @@ import java.util.Optional;
 public class CategoriaService {
 
     @Autowired
-    CategoriaRepository categoriaRepository;
+    private CategoriaRepository categoriaRepository;
 
     public Categoria findById(Integer id){
         Optional<Categoria> cat = categoriaRepository.findById(id);
