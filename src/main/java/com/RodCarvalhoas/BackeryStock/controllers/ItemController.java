@@ -33,4 +33,12 @@ public class ItemController {
         return ResponseEntity.ok().body(itemDTOList);
     }
 
+    @PutMapping(value = "/{idItemAntigo}")
+    public ResponseEntity<ItemDTO> update(@PathVariable Integer idItemAntigo, @RequestBody Item itemAtualizado,
+                                          @RequestParam (value = "categoria_id", defaultValue = "0")Integer id_cat){
+        Item it = itemService.update(idItemAntigo, itemAtualizado, id_cat);
+        return ResponseEntity.ok().body(new ItemDTO(it));
+    }
+    
+
 }

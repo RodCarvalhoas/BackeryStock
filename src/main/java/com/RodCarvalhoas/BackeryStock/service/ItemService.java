@@ -1,5 +1,6 @@
 package com.RodCarvalhoas.BackeryStock.service;
 
+import com.RodCarvalhoas.BackeryStock.domain.Categoria;
 import com.RodCarvalhoas.BackeryStock.domain.Item;
 import com.RodCarvalhoas.BackeryStock.exceptions.ObjectNotFoundException;
 import com.RodCarvalhoas.BackeryStock.repositories.ItemRepository;
@@ -31,5 +32,18 @@ public class ItemService {
         return itemRepository.findAllByCategoria(id_cat);
     }
 
+
+    public Item update(Integer idItemAntigo, Item itemAtualizado, Integer id_cat) {
+        Categoria cat = categoriaService.findById(id_cat);
+        Item itemAntigo = findById(idItemAntigo);
+        itemAtualizado.setId(itemAntigo.getId());
+        itemAtualizado.setCategoria(cat);
+        itemAtualizado.setTotal(calcularValorTotal(itemAtualizado));
+        return itemRepository.save(itemAtualizado);
+    }
+
+    private Double calcularValorTotal(Item item){
+        return item.getQuantidade() * item.getValorUn();
+    }
 
 }
