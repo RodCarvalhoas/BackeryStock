@@ -6,7 +6,9 @@ import com.RodCarvalhoas.BackeryStock.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -39,6 +41,12 @@ public class ItemController {
         Item it = itemService.update(idItemAntigo, itemAtualizado, id_cat);
         return ResponseEntity.ok().body(new ItemDTO(it));
     }
-    
+
+    @PostMapping
+    public ResponseEntity<Item> create(@RequestBody Item item, @RequestParam (value = "categoria_id", defaultValue = "0")Integer id_cat){
+        Item it = itemService.create(item, id_cat);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(it.getId()).toUri();
+        return ResponseEntity.created(uri).build();
+    }
 
 }

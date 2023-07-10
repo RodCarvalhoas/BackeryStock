@@ -42,8 +42,16 @@ public class ItemService {
         return itemRepository.save(itemAtualizado);
     }
 
+
+
+    public Item create(Item item, Integer id_cat) {
+        Categoria categoria = categoriaService.findById(id_cat);
+        item.setCategoria(categoria);
+        item.setTotal(calcularValorTotal(item));
+        return itemRepository.save(item);
+    }
+
     private Double calcularValorTotal(Item item){
         return item.getQuantidade() * item.getValorUn();
     }
-
 }
