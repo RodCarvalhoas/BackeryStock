@@ -54,4 +54,9 @@ public class ItemService {
     private Double calcularValorTotal(Item item){
         return item.getQuantidade() * item.getValorUn();
     }
+
+    public void deleteById(Integer id) {
+        Item item = findById(id);
+        itemRepository.deleteById(item.getId());
+    }
 }
