@@ -3,6 +3,7 @@ package com.RodCarvalhoas.BackeryStock.controllers;
 import com.RodCarvalhoas.BackeryStock.domain.Categoria;
 import com.RodCarvalhoas.BackeryStock.dtos.CategoriaDTO;
 import com.RodCarvalhoas.BackeryStock.service.CategoriaService;
+import jakarta.validation.Valid;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,7 @@ import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/categorias")
 public class CategoriaController {
@@ -34,7 +36,7 @@ public class CategoriaController {
     }
 
     @PostMapping
-    public ResponseEntity<Categoria> create(@RequestBody CategoriaDTO categoriaDTO){
+    public ResponseEntity<Categoria> create(@Valid @RequestBody CategoriaDTO categoriaDTO){
         Categoria cat = new Categoria();
         BeanUtils.copyProperties(categoriaDTO, cat);
         categoriaService.create(cat);
@@ -43,7 +45,7 @@ public class CategoriaController {
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<CategoriaDTO> update(@RequestBody CategoriaDTO categoriaDTO, @PathVariable Integer id){
+    public ResponseEntity<CategoriaDTO> update(@Valid @RequestBody CategoriaDTO categoriaDTO, @PathVariable Integer id){
         Categoria cat = categoriaService.update(categoriaDTO, id);
         return ResponseEntity.ok().body(new CategoriaDTO(cat));
     }

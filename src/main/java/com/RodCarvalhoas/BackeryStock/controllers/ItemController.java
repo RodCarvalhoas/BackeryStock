@@ -3,6 +3,7 @@ package com.RodCarvalhoas.BackeryStock.controllers;
 import com.RodCarvalhoas.BackeryStock.domain.Item;
 import com.RodCarvalhoas.BackeryStock.dtos.ItemDTO;
 import com.RodCarvalhoas.BackeryStock.service.ItemService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/item")
 public class ItemController {
@@ -36,14 +38,14 @@ public class ItemController {
     }
 
     @PutMapping(value = "/{idItemAntigo}")
-    public ResponseEntity<ItemDTO> update(@PathVariable Integer idItemAntigo, @RequestBody Item itemAtualizado,
+    public ResponseEntity<ItemDTO> update(@PathVariable Integer idItemAntigo, @Valid @RequestBody Item itemAtualizado,
                                           @RequestParam (value = "categoria_id", defaultValue = "0")Integer id_cat){
         Item it = itemService.update(idItemAntigo, itemAtualizado, id_cat);
         return ResponseEntity.ok().body(new ItemDTO(it));
     }
 
     @PostMapping
-    public ResponseEntity<Item> create(@RequestBody Item item, @RequestParam (value = "categoria_id", defaultValue = "0")Integer id_cat){
+    public ResponseEntity<Item> create(@Valid @RequestBody Item item, @RequestParam (value = "categoria_id", defaultValue = "0")Integer id_cat){
         Item it = itemService.create(item, id_cat);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(it.getId()).toUri();
         return ResponseEntity.created(uri).build();
