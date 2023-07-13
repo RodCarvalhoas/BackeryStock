@@ -30,7 +30,7 @@ public class AdviceExceptionHandlerController {
 
     @ExceptionHandler(DataIntegrityViolationException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public StandardError handleDataIntegrityViolationException(DataIntegrityViolationException ex, WebRequest webRequest){
+    public StandardError handleDataIntegrityViolationExceptionCustom(DataIntegrityViolationException ex, WebRequest webRequest){
         return new StandardError(
                 new Date(),
                 HttpStatus.BAD_REQUEST.value(),
@@ -54,6 +54,14 @@ public class AdviceExceptionHandlerController {
         return error;
     }
 
-
+//    @ExceptionHandler({jakarta.validation.ConstraintViolationException.class})
+//    @ResponseStatus(HttpStatus.NOT_FOUND)
+//    public StandardError handleConstraintViolationException(com.RodCarvalhoas.BackeryStock.exceptions.ConstraintViolationException ex, WebRequest webRequest){
+//        return new StandardError(
+//                new Date(),
+//                HttpStatus.NOT_FOUND.value(),
+//                ex.getMessage(),
+//                webRequest.getDescription(false));
+//    }
 
 }
