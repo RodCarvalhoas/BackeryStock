@@ -1,7 +1,6 @@
 package com.RodCarvalhoas.BackeryStock.controllers;
 
 import com.RodCarvalhoas.BackeryStock.domain.Usuario;
-import com.RodCarvalhoas.BackeryStock.dtos.UsuarioDTO;
 import com.RodCarvalhoas.BackeryStock.service.UsuarioService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,9 +37,9 @@ public class UsuarioController {
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<UsuarioDTO> update(@PathVariable Long id,@Valid @RequestBody Usuario Usuario){
+    public ResponseEntity<Usuario> update(@PathVariable Long id,@Valid @RequestBody Usuario Usuario){
         Usuario us = UsuarioService.update(id, Usuario);
-        return ResponseEntity.ok().body(new UsuarioDTO(us));
+        return ResponseEntity.ok().body(us);
     }
 
     @DeleteMapping(value = "/{id}")

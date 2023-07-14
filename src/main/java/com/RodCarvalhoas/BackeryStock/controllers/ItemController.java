@@ -57,4 +57,12 @@ public class ItemController {
         return ResponseEntity.noContent().build();
     }
 
+    @PatchMapping("/{id}/item-output")
+    public ResponseEntity<ItemDTO> itemOutput (@PathVariable Integer id, @RequestParam Integer quantidade) {
+        Item itemAtualizado = itemService.itemOutput(id, quantidade);
+        ItemDTO itemDTO = new ItemDTO(itemAtualizado);
+        return ResponseEntity.ok().body(itemDTO);
+    }
+
+
 }

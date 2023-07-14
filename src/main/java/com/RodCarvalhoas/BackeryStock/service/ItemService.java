@@ -59,4 +59,16 @@ public class ItemService {
         Item item = findById(id);
         itemRepository.deleteById(item.getId());
     }
+
+    public Item itemOutput(Integer id, Integer quantidade) {
+        Item item = findById(id);
+        retiraQuantidade(item, quantidade);
+        return itemRepository.save(item);
+    }
+
+    private void retiraQuantidade(Item item, Integer quantidade){
+        Integer quantidadeAtual = item.getQuantidade();
+        Integer novaQuantidade = quantidadeAtual - quantidade;
+        item.setQuantidade(novaQuantidade);
+    }
 }

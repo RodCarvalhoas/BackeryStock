@@ -2,7 +2,9 @@ package com.RodCarvalhoas.BackeryStock.domain;
 
 import com.RodCarvalhoas.BackeryStock.Enums.TypeUsuario;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -39,6 +41,5 @@ public class Usuario {
     @NotEmpty(message = "Campo PASSWORD é requerido")
     @Length(min = 5, max = 100, message = "O campo PASSWORD deve ter entre 5 e 100 caracteres")
     private String password;
-
 
 }
