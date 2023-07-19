@@ -31,7 +31,6 @@ public class CategoriaService {
     }
 
     public Categoria create(Categoria cat){
-        cat.setId(null);
         return categoriaRepository.save(cat);
     }
 

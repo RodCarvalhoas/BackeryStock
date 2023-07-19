@@ -47,6 +47,4 @@ public class UsuarioController {
         UsuarioService.deleteById(id);
         return ResponseEntity.noContent().build();
     }
-
-
 }
