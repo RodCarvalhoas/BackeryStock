@@ -3,7 +3,9 @@ package com.RodCarvalhoas.BackeryStock.domain;
 import com.RodCarvalhoas.BackeryStock.Enums.UnMedida;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
@@ -41,7 +43,8 @@ public class Item {
     @JoinColumn(name = "categoria_id")
     private Categoria categoria;
 
-    public Item(String name, Integer quantidade, Double valorUn, UnMedida unMedida, Categoria categoria) {
+    public Item(Integer id, String name, Integer quantidade, Double valorUn, UnMedida unMedida, Categoria categoria) {
+        this.id = id;
         this.name = name;
         this.quantidade = quantidade;
         this.valorUn = valorUn;

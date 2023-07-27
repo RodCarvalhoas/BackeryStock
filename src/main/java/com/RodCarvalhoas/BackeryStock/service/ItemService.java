@@ -21,10 +21,7 @@ public class ItemService {
 
     public Item findById(Integer id){
         Optional<Item> item = itemRepository.findById(id);
-        if(item.isEmpty()){
-            throw new ObjectNotFoundException("Item com o id: " + id + " não pode ser encontrado.");
-        }
-        return item.get();
+        return item.orElseThrow(() -> new ObjectNotFoundException("Item com o id: " + id + " não pode ser encontrado."));
     }
 
     public List<Item> findAllByCategoria(Integer id_cat){
@@ -66,7 +63,7 @@ public class ItemService {
         return itemRepository.save(item);
     }
 
-    private void retiraQuantidade(Item item, Integer quantidade){
+    public void retiraQuantidade(Item item, Integer quantidade){
         Integer quantidadeAtual = item.getQuantidade();
         Integer novaQuantidade = quantidadeAtual - quantidade;
         item.setQuantidade(novaQuantidade);

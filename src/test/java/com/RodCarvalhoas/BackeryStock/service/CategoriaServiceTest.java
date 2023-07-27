@@ -62,7 +62,7 @@ class CategoriaServiceTest {
     void whenFindByIdThenReturnAnObjectNotFoundException() {
         when(categoriaRepository.findById(anyInt())).thenThrow(new ObjectNotFoundException(CATEGORIA_NAO_ENCONTRADA));
         try{
-            categoriaService.findById(ID);
+            categoriaService.findById(2);
         }catch (Exception ex){
             assertEquals(ObjectNotFoundException.class, ex.getClass());
             assertEquals(CATEGORIA_NAO_ENCONTRADA, ex.getMessage());
@@ -112,7 +112,7 @@ class CategoriaServiceTest {
     }
 
     @Test
-    void deleteCategoriaWithSucess() {
+    void deleteCategoriaWithSuccess() {
         when(categoriaRepository.findById(Mockito.anyInt())).thenReturn(categoriaOptional);
         doNothing().when(categoriaRepository).deleteById(Mockito.anyInt());
 

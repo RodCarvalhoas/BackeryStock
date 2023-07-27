@@ -20,10 +20,7 @@ public class CategoriaService {
 
     public Categoria findById(Integer id){
         Optional<Categoria> cat = categoriaRepository.findById(id);
-        if(cat.isEmpty()){
-            throw new ObjectNotFoundException("Categoria com o id: " + id +", não encontrado! \nTipo: " + Categoria.class.getName());
-        }
-        return cat.get();
+        return cat.orElseThrow(() -> new ObjectNotFoundException("Categoria com o id: " + id +", não encontrado! \nTipo: " + Categoria.class.getName()));
     }
 
     public List<Categoria> findAll(){
