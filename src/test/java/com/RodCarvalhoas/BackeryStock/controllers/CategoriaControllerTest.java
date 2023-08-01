@@ -108,8 +108,9 @@ class CategoriaControllerTest {
     void whenDeleteWithSuccess() {
         doNothing().when(categoriaService).delete(Mockito.anyInt());
 
-        categoriaController.delete(ID);
-
+        ResponseEntity<Void> cat = categoriaController.delete(ID);
+        assertEquals(ResponseEntity.class, cat.getClass());
+        assertEquals(HttpStatus.NO_CONTENT, cat.getStatusCode());
         Mockito.verify(categoriaService, Mockito.times(1)).delete(Mockito.any());
     }
 

@@ -19,6 +19,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
@@ -32,6 +33,7 @@ class ItemControllerTest {
     private Categoria categoria = new Categoria(1, "Congelados", "Frios & Congelados");
 
     private Item item;
+    private Item itemAtualizado;
     private ItemDTO itemDTO;
 
     @InjectMocks
@@ -81,23 +83,61 @@ class ItemControllerTest {
     }
 
     @Test
-    void update() {
+    void whenUpdateThenReturnSuccess() {
+        when(itemService.update(Mockito.anyInt(),Mockito.any(),Mockito.anyInt())).thenReturn(itemAtualizado);
+
+        ResponseEntity<ItemDTO> it = itemController.update(ID, item, categoria.getId());
+
+        assertNotNull(it);
+        assertEquals(ResponseEntity.class, it.getClass());
+        assertEquals(HttpStatus.OK, it.getStatusCode());
+        assertEquals(ID, it.getBody().getId());
+        assertEquals("ARROZ", it.getBody().getName());
+        assertEquals(80, it.getBody().getQuantidade());
+        assertEquals(4.25, it.getBody().getValorUn());
+        assertEquals(UnMedida.KG, it.getBody().getUnMedida());
+        assertEquals(categoria, it.getBody().getCategoria());
     }
 
     @Test
-    void create() {
+    void whenCreateThenReturnSuccess() {
+        when(itemService.create(Mockito.any(), Mockito.anyInt())).thenReturn(item);
+
+        ResponseEntity<Item> it = itemController.create(item, categoria.getId());
+
+        assertNotNull(it);
+        assertNotNull(it.getHeaders().get("Location"));
+        assertEquals(ResponseEntity.class, it.getClass());
+        assertEquals(HttpStatus.CREATED, it.getStatusCode());
     }
 
     @Test
-    void delete() {
+    void whenDeleteWithSuccess() {
+        doNothing().when(itemService).deleteById(Mockito.anyInt());
+
+        ResponseEntity<Void> it = itemController.delete(ID);
+
+        assertEquals(ResponseEntity.class, it.getClass());
+        assertEquals(HttpStatus.NO_CONTENT, it.getStatusCode());
+        Mockito.verify(itemService, Mockito.times(1)).deleteById(Mockito.any());
+
     }
 
     @Test
-    void itemOutput() {
+    void whenItemOutputThenReturnSuccess() {
+        when(itemService.itemOutput(Mockito.anyInt(), Mockito.anyInt())).thenReturn(item);
+
+        ResponseEntity<ItemDTO> it = itemController.itemOutput(ID, 15);
+
+        assertNotNull(it);
+        assertEquals(ResponseEntity.class, it.getClass());
+        assertEquals(HttpStatus.OK, it.getStatusCode());
+        assertEquals(5, it.getBody().getQuantidade() - 15);
     }
 
     private void startItem(){
         item = new Item(ID, NAME, QUANTIDADE, VALOR_UN, UN_MEDIDA, categoria);
+        itemAtualizado = new Item(ID, "ARROZ", 80, 4.25, UnMedida.KG, categoria);
         itemDTO = new ItemDTO(ID, NAME, QUANTIDADE, VALOR_UN, UN_MEDIDA, categoria);
     }
 }

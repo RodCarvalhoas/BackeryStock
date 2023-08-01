@@ -110,8 +110,10 @@ class UsuarioControllerTest {
     void whenDeleteWithSuccess() {
         doNothing().when(usuarioService).deleteById(Mockito.any());
 
-        usuarioController.delete(ID);
+        ResponseEntity<Void> user = usuarioController.delete(ID);
 
+        assertEquals(ResponseEntity.class, user.getClass());
+        assertEquals(HttpStatus.NO_CONTENT, user.getStatusCode());
         Mockito.verify(usuarioService, Mockito.times(1)).deleteById(Mockito.any());
 
     }
