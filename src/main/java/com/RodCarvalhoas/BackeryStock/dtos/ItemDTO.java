@@ -38,6 +38,15 @@ public class ItemDTO {
     @JsonIgnore
     private Categoria categoria;
 
+    public ItemDTO(Integer id, String name, Integer quantidade, Double valorUn, UnMedida unMedida, Categoria categoria) {
+        this.id = id;
+        this.name = name;
+        this.quantidade = quantidade;
+        this.valorUn = valorUn;
+        this.unMedida = unMedida;
+        this.categoria = categoria;
+    }
+
     public ItemDTO(Item item) {
         this.id = item.getId();
         this.name = item.getName();

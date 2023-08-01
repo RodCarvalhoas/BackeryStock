@@ -54,14 +54,4 @@ public class AdviceExceptionHandlerController {
         return error;
     }
 
-//    @ExceptionHandler({jakarta.validation.ConstraintViolationException.class})
-//    @ResponseStatus(HttpStatus.NOT_FOUND)
-//    public StandardError handleConstraintViolationException(com.RodCarvalhoas.BackeryStock.exceptions.ConstraintViolationException ex, WebRequest webRequest){
-//        return new StandardError(
-//                new Date(),
-//                HttpStatus.NOT_FOUND.value(),
-//                ex.getMessage(),
-//                webRequest.getDescription(false));
-//    }
-
 }

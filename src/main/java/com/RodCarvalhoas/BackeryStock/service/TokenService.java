@@ -42,7 +42,6 @@ public class TokenService {
                     .getSubject();
         }catch (JWTVerificationException ex){
             return "";
-
         }
     }
 
@@ -50,5 +49,4 @@ public class TokenService {
         return LocalDateTime.now().plusHours(2).toInstant(ZoneOffset.of("-03:00"));
 
     }
-
 }
