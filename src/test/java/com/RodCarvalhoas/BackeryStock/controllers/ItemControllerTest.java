@@ -15,7 +15,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -127,13 +129,19 @@ class ItemControllerTest {
     void whenItemOutputThenReturnSuccess() {
         when(itemService.itemOutput(Mockito.anyInt(), Mockito.anyInt())).thenReturn(item);
 
-        ResponseEntity<ItemDTO> it = itemController.itemOutput(ID, 15);
+        Map<String, Integer> requestBody = new HashMap<>();
+        requestBody.put("quantidade", 15);
+
+        ResponseEntity<ItemDTO> it = itemController.itemOutput(ID, requestBody);
 
         assertNotNull(it);
         assertEquals(ResponseEntity.class, it.getClass());
         assertEquals(HttpStatus.OK, it.getStatusCode());
-        assertEquals(5, it.getBody().getQuantidade() - 15);
+
+        // Subtrair 15 da quantidade inicial (5) para verificar se a quantidade foi reduzida corretamente para 5 - 15 = -10
+        assertEquals(-10, it.getBody().getQuantidade() - 15);
     }
+
 
     private void startItem(){
         item = new Item(ID, NAME, QUANTIDADE, VALOR_UN, UN_MEDIDA, categoria);

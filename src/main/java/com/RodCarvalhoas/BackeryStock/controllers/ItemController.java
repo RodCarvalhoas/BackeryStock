@@ -12,6 +12,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @CrossOrigin("*")
@@ -58,7 +59,8 @@ public class ItemController {
     }
 
     @PatchMapping("/{id}/item-output")
-    public ResponseEntity<ItemDTO> itemOutput (@PathVariable Integer id, @RequestParam Integer quantidade) {
+    public ResponseEntity<ItemDTO> itemOutput (@PathVariable Integer id, @RequestBody Map<String, Integer> requestBody) {
+        Integer quantidade = requestBody.get("quantidade");
         Item itemAtualizado = itemService.itemOutput(id, quantidade);
         ItemDTO itemDTO = new ItemDTO(itemAtualizado);
         return ResponseEntity.ok().body(itemDTO);
