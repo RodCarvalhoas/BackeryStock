@@ -1,6 +1,7 @@
 package com.RodCarvalhoas.BackeryStock.controllers;
 
 import com.RodCarvalhoas.BackeryStock.domain.Usuario;
+import com.RodCarvalhoas.BackeryStock.dtos.UsuarioRequest;
 import com.RodCarvalhoas.BackeryStock.service.UsuarioService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/Usuario")
+@CrossOrigin(origins = "http://localhost:4200")
 public class UsuarioController {
 
     @Autowired
@@ -21,6 +23,12 @@ public class UsuarioController {
     @GetMapping(value = "/{id}")
     public ResponseEntity<Usuario> findById(@PathVariable Long id){
         Usuario Usuario = usuarioService.findById(id);
+        return ResponseEntity.ok().body(Usuario);
+    }
+
+    @GetMapping(value = "findName")
+    public ResponseEntity<Usuario> findByName(@RequestParam String name){
+        Usuario Usuario = usuarioService.findByName(name);
         return ResponseEntity.ok().body(Usuario);
     }
 
@@ -37,9 +45,15 @@ public class UsuarioController {
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<Usuario> update(@PathVariable Long id,@Valid @RequestBody Usuario Usuario){
+    public ResponseEntity<Usuario> update(@PathVariable Long id,@Valid @RequestBody UsuarioRequest Usuario){
         Usuario us = usuarioService.update(id, Usuario);
         return ResponseEntity.ok().body(us);
+    }
+
+    @PatchMapping(value = "/{id}")
+    public ResponseEntity<Usuario> partialUpdate(@PathVariable Long id, @Valid @RequestBody Usuario usuarioAtualizado) {
+        Usuario usuario = usuarioService.partialUpdate(id, usuarioAtualizado);
+        return ResponseEntity.ok().body(usuario);
     }
 
     @DeleteMapping(value = "/{id}")

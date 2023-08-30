@@ -68,4 +68,16 @@ public class ItemService {
         Integer novaQuantidade = quantidadeAtual - quantidade;
         item.setQuantidade(novaQuantidade);
     }
+
+    public Item entryItem(Integer id, Integer quantidade){
+        Item item = findById(id);
+        adicionaQuantidade(item, quantidade);
+        return itemRepository.save(item);
+    }
+
+    public void adicionaQuantidade(Item item, Integer quantidade){
+        Integer quantidadeAtual = item.getQuantidade();
+        Integer quantidadeAdicionar = quantidadeAtual + quantidade;
+        item.setQuantidade(quantidadeAdicionar);
+    }
 }

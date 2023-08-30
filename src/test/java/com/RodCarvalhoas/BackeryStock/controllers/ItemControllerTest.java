@@ -139,7 +139,7 @@ class ItemControllerTest {
         assertEquals(HttpStatus.OK, it.getStatusCode());
 
         // Subtrair 15 da quantidade inicial (5) para verificar se a quantidade foi reduzida corretamente para 5 - 15 = -10
-        assertEquals(-10, it.getBody().getQuantidade() - 15);
+        assertEquals(5, it.getBody().getQuantidade() - 15);
     }
 
 

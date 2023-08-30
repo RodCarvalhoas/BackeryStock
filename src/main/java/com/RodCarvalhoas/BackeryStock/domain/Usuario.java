@@ -1,7 +1,9 @@
 package com.RodCarvalhoas.BackeryStock.domain;
 
 import com.RodCarvalhoas.BackeryStock.Enums.Role;
+import com.RodCarvalhoas.BackeryStock.config.security.CustomAuthorityDeserializer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
@@ -56,6 +58,7 @@ public class Usuario implements UserDetails, Serializable {
         this.password = password;
     }
 
+    @JsonDeserialize(using = CustomAuthorityDeserializer.class)
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         if(this.role == Role.ADMIN) return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_USER"));

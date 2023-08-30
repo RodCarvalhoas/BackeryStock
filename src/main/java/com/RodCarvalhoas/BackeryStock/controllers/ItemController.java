@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-@CrossOrigin("*")
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/item")
 public class ItemController {
@@ -62,6 +62,14 @@ public class ItemController {
     public ResponseEntity<ItemDTO> itemOutput (@PathVariable Integer id, @RequestBody Map<String, Integer> requestBody) {
         Integer quantidade = requestBody.get("quantidade");
         Item itemAtualizado = itemService.itemOutput(id, quantidade);
+        ItemDTO itemDTO = new ItemDTO(itemAtualizado);
+        return ResponseEntity.ok().body(itemDTO);
+    }
+
+    @PatchMapping("{id}/entry-item")
+    public ResponseEntity<ItemDTO> entryItem(@PathVariable Integer id, @RequestBody Map<String, Integer> requestBody){
+        Integer quantidade = requestBody.get("quantidade");
+        Item itemAtualizado = itemService.entryItem(id, quantidade);
         ItemDTO itemDTO = new ItemDTO(itemAtualizado);
         return ResponseEntity.ok().body(itemDTO);
     }

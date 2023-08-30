@@ -147,6 +147,21 @@ class ItemServiceTest {
         assertEquals(5, it.getQuantidade());
         assertEquals(VALOR_UN, it.getValorUn());
         assertEquals(categoria, it.getCategoria());
+    }
+    @Test
+    void whenEntryItemThenReturnSuccess() {
+        when(itemRepository.findById(Mockito.anyInt())).thenReturn(itemOptional);
+        when(itemRepository.save(Mockito.any())).thenReturn(itemPatch);
+
+
+        Item it = itemService.entryItem(ID, 15);
+
+        assertNotNull(it);
+        assertEquals(ID, it.getId());
+        assertEquals(NAME, it.getName());
+        assertEquals(5, it.getQuantidade());
+        assertEquals(VALOR_UN, it.getValorUn());
+        assertEquals(categoria, it.getCategoria());
 
     }
 
