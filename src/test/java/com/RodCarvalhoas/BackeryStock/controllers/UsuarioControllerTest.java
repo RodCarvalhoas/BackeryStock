@@ -2,6 +2,7 @@ package com.RodCarvalhoas.BackeryStock.controllers;
 
 import com.RodCarvalhoas.BackeryStock.Enums.Role;
 import com.RodCarvalhoas.BackeryStock.domain.Usuario;
+import com.RodCarvalhoas.BackeryStock.dtos.UsuarioRequest;
 import com.RodCarvalhoas.BackeryStock.service.UsuarioService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -31,6 +32,7 @@ class UsuarioControllerTest {
     
     private Usuario usuario;
     private Usuario usuarioAtualizado;
+    private UsuarioRequest usuarioAtualizadoRequest;
 
     @Mock
     UsuarioService usuarioService;
@@ -93,7 +95,7 @@ class UsuarioControllerTest {
     void whenUpdateThenReturnSuccess() {
         when(usuarioService.update(Mockito.anyLong(), Mockito.any())).thenReturn(usuarioAtualizado);
 
-        ResponseEntity<Usuario> user = usuarioController.update(ID, usuarioAtualizado);
+        ResponseEntity<Usuario> user = usuarioController.update(ID, usuarioAtualizadoRequest);
 
         assertNotNull(user);
         assertEquals(ResponseEntity.class, user.getClass());
@@ -120,6 +122,7 @@ class UsuarioControllerTest {
 
     private void startUsuario(){
         usuario = new Usuario(ID, NAME,EMAIL, CPF, ROLE, PASSWORD);
+        usuarioAtualizadoRequest = new UsuarioRequest(ID, NAME,EMAIL, CPF, ROLE, PASSWORD);
         usuarioAtualizado = new Usuario(ID, "Rafael"
                 , "rafa@hotmail.com"
                 , "21406241814"

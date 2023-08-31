@@ -2,6 +2,7 @@ package com.RodCarvalhoas.BackeryStock.service;
 
 import com.RodCarvalhoas.BackeryStock.Enums.Role;
 import com.RodCarvalhoas.BackeryStock.domain.Usuario;
+import com.RodCarvalhoas.BackeryStock.dtos.UsuarioRequest;
 import com.RodCarvalhoas.BackeryStock.exceptions.DataIntegrityViolationException;
 import com.RodCarvalhoas.BackeryStock.exceptions.ObjectNotFoundException;
 import com.RodCarvalhoas.BackeryStock.repositories.UsuarioRepository;
@@ -38,6 +39,7 @@ class UsuarioServiceTest {
 
     private Usuario usuario;
     private Optional<Usuario> usuarioOptional;
+    private UsuarioRequest usuarioAtualizadoRequest;
 
     @BeforeEach
     void setUp() {
@@ -127,7 +129,7 @@ class UsuarioServiceTest {
         usuarioAtualizado.setName("Rafael");
         usuarioAtualizado.setCpf("21406241814");
 
-        Usuario objUpdate = usuarioService.update(ID, usuarioAtualizado);
+        Usuario objUpdate = usuarioService.update(ID, usuarioAtualizadoRequest);
 
         assertNotNull(objUpdate);
         assertEquals(ID, objUpdate.getId());
@@ -161,5 +163,6 @@ class UsuarioServiceTest {
     private void startUsuario(){
         usuario = new Usuario(ID, NAME,EMAIL, CPF, ROLE, PASSWORD);
         usuarioOptional = Optional.of(new Usuario(ID, NAME,EMAIL, CPF, ROLE, PASSWORD));
+        usuarioAtualizadoRequest = new UsuarioRequest(ID, NAME,EMAIL, CPF, ROLE, PASSWORD);
     }
 }
