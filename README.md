@@ -2,7 +2,7 @@
 
 Bem-vindo ao **BackeryStock Backend**! Este é o coração do sistema de gestão de estoque da padaria, criado com o poderoso Java Spring.
 
-[![Java Spring Logo](https://link_para_logo_java_spring.png)](https://spring.io/img/spring.svg)
+![image](https://spring.io/img/spring-2.svg)
 
 ## ⚙️ Tecnologias e Recursos
 
